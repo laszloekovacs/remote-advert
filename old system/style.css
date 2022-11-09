@@ -1,0 +1,25 @@
+body {
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+    background-color: black;
+
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#container {
+    margin: 0px;
+    padding: 0px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+img {
+    margin: 1024px 0px 1024px 0px;
+    width: 100vw;
+}
+
