@@ -1,45 +1,51 @@
-import React, { useEffect, useState } from "react";
-import AdvertList from "./AdvertList";
+import React, { useEffect, useMemo, useState } from "react";
+import ImageRotator from "./ImageRotator";
+import { jsonFetch } from "./loaders";
+import Preview from "./Preview";
+import "./style.css"
 
 
-const requestUrl = './list.json'
-const path = 'content/'
+const imageListPath = '/list.json'
+const contentPath = 'content/'
+const basePath = window.location.href
 
-
+const previewClearDelay = 2000
 
 function App() {
 
-  const [images, setImages] = useState<string[]>([])
+  const [objectUrls, setObjectUrls] = useState<string[]>([])
+  const [imageUrls, setImageUrls] = useState<string[]>([])
+  const [isPending, setPending] = useState(true)
+
+
+  function loadedHandler(urls: string[]) {
+    setObjectUrls(urls)
+    console.log('finished')
+
+    // dont flash away the preview even if we load it in very fast
+    setTimeout(() => {
+      setPending(false)
+    }, previewClearDelay)
+
+  }
 
   useEffect(() => {
-    async function getImages() {
-      try {
 
-        const res = await fetch(requestUrl)
-        const data: string[] = await res.json()
+    jsonFetch(basePath + imageListPath)
+      .then(images => {
+        const list = images.map((data: string) => basePath + contentPath + data)
+        setImageUrls(list)
+      })
 
-        const list = data.map(i => `${window.location.href}${path}${i}`)
-
-        setImages(list)
-        console.log(list)
-
-      } catch (error: unknown) {
-        console.log("error")
-        if (error instanceof Error) {
-          console.log(error.message)
-        }
-      }
-    }
-
-    getImages()
-
-    return () => { setImages([]) }
+    return () => { setImageUrls([]) }
   }, [])
 
+
   return (
-    <div>
-      <AdvertList images={images}></AdvertList>
-    </div>
+    <>
+      {isPending && imageUrls.length != 0 && <Preview images={imageUrls} onLoaded={loadedHandler}></Preview>}
+      {!isPending && objectUrls.length != 0 && <ImageRotator urls={objectUrls}></ImageRotator>}
+    </>
   )
 }
 
