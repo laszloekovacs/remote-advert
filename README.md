@@ -3,7 +3,7 @@
 A simple page displaying advertisement and switching them at a specified time.
 It's meant to be served from a NAS that supports php. The content folder can 
 be managed by everyone who has access to it on the network, no admin page is needed.
-ment to be viewed in portrait orientation.
+Meant to be viewed in portrait orientation.
 
 
 ## how to run
