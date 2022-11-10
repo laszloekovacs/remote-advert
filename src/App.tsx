@@ -5,7 +5,12 @@ import Preview from "./Preview";
 import "./style.css"
 
 
-const imageListPath = '/list.json'
+
+/**
+ * repl
+ */
+const imageListPath = 'list.json'
+//const imageListPath = '/list.php'
 const contentPath = 'content/'
 const basePath = window.location.href
 
@@ -33,7 +38,12 @@ function App() {
 
     jsonFetch(basePath + imageListPath)
       .then(images => {
-        const list = images.map((data: string) => basePath + contentPath + data)
+
+        images = images.filter((s: string) => s != '.' && s != '..')
+
+        const list = images.map((data: string) => {
+          return new URL(basePath + contentPath + data)
+        })
         setImageUrls(list)
       })
 
