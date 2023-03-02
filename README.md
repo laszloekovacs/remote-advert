@@ -5,6 +5,7 @@ It's meant to be served from a NAS that supports php. The content folder can
 be managed by everyone who has access to it on the network, no admin page is needed.
 Meant to be viewed in portrait orientation.
 
+![photo](img.jpg)
 
 ## how to run
 The project is scaffolded with vite, after cloning run
