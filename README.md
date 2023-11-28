@@ -8,4 +8,4 @@ Meant to be viewed in portrait orientation.
 
 ## photo of deployment in the wild
 
-[photo](/img.jpg)
+![photo](img.jpg)
